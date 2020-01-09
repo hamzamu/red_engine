@@ -19,22 +19,46 @@ print "..........................."
 ;======================================;
 ;     Loading Configuration file
 ;======================================;
-files: []
-do %configs.red
+; files: []
+; do %configs.red
 ;----- load files
-foreach file files [
-    print [file "Loading....." ":Success"]
-    do to-file file
+; foreach file files [
+;     print [file "Loading....." ":Success"]
+;     do to-file file
+; ]
+
+load_files: does [
+    print "..........................."
+    print "Loading files"
+    print "...."
+    folder: read %./lib/
+    print ["folder" folder]
+    foreach file folder [
+        foreach ext [".red"] [ 
+            if find file ext [
+                print ["{Loading}: " file]
+                f: rejoin ["./lib/" file]
+                do  to-file f
+                print ["{Success}..........." file]
+                ]
+        ]
+    ]
+    print "Files loaded success"
+    print "..........................."
 ]
 
-print "Files loaded success"
-print "..........................."
+
+load_files
+
+
+
+
 ;---- test run a library runction ---;
 ; print_this "hello"
 ;=============================
 ; Commands => Functions
 ;=============================
-commands: ["hello_world" "hx" "print_this"]
+commands: ["hello_world" "hx" "print_this" "exit"]
 print ["Commands: " commands]
 print "..........................."
 ;=============================
